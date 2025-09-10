@@ -1,0 +1,43 @@
+# Pastas de compilação do Maven/Gradle
+/target/
+/build/
+
+# Arquivos e pastas de configuração do VSCode
+.vscode/
+
+# Pastas e arquivos do Eclipse
+/.classpath
+/.project
+/.settings/
+
+# Arquivos do IntelliJ IDEA
+/.idea/
+
+# Arquivos temporários de compilação
+/*.class
+*.log
+*.tmp
+
+# Pastas de dependências do Maven
+/.mvn/
+/pom.xml.tag
+/pom.xml.releaseBackup
+/pom.xml.versionsBackup
+/pom.xml.next
+
+# Arquivos de configuração do Spring Boot
+# application.properties
+# application.yml
+
+# Arquivos de log
+/logs/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Dependências do Gradle
+.gradle/
+build.gradle
+gradle-wrapper.jar
+gradle-wrapper.properties
