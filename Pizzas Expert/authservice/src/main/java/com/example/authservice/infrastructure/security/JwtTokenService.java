@@ -3,6 +3,7 @@ package com.example.authservice.infrastructure.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.authservice.application.port.TokenService;
+import com.example.authservice.application.token.EmitRefreshTokenHandler;
 import com.example.authservice.domain.user.User;
 import com.example.authservice.infrastructure.config.JwtProperties;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenService implements TokenService {
     private final JwtProperties props;
+    private final EmitRefreshTokenHandler emitRefreshTokenHandler;
 
     @Override
     public TokenPair issue(User user) {
@@ -31,7 +33,7 @@ public class JwtTokenService implements TokenService {
         // do jwt properties
         Instant accessExp = now.plusSeconds(props.getAccessTtlSeconds());
 
-        // esse é o token de acesso
+        // esse é o token de acesso curto
         String access = JWT.create()
                 .withIssuer(props.getIssuer())
                 .withAudience(props.getAudience())
@@ -58,6 +60,9 @@ public class JwtTokenService implements TokenService {
                 .withClaim("role", user.getRole().getValue().name())
                 .withClaim("level", user.getRole().getValue().getLevel())
                 .sign(alg);
+
+                
+        emitRefreshTokenHandler.handle(refresh, refreshExp, user);
 
         // criação do token, passando o token de acesso, de refresh, e o tempo de
         // expiração

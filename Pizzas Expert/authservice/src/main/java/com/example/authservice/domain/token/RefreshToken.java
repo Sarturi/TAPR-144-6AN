@@ -4,12 +4,15 @@ import java.util.UUID;
 
 import com.example.authservice.domain.token.vo.ExpiresAt;
 import com.example.authservice.domain.token.vo.TokenHash;
+import com.example.authservice.domain.user.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -29,9 +32,14 @@ public class RefreshToken {
 
     private boolean active;
 
-    public RefreshToken(TokenHash tokenHash, ExpiresAt expiresAt, boolean active) {
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    public RefreshToken(TokenHash tokenHash, ExpiresAt expiresAt, boolean active, User user) {
         this.tokenHash = tokenHash;
         this.expiresAt = expiresAt;
         this.active = active;
+        this.user = user;
     }
 }
