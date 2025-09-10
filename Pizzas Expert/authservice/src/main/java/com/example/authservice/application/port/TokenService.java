@@ -10,6 +10,6 @@ public interface TokenService {
     ) {}
 
     TokenPair issue(User user);
-
     TokenPair refresh(String refreshToken);
+    void revoke(String refreshToken);
 }

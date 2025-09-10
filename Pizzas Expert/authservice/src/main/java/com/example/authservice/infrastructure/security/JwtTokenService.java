@@ -85,4 +85,15 @@ public class JwtTokenService implements TokenService {
         User user = refreshToken.getUser();
         return issue(user);
     }
+
+    @Override
+    public void revoke(String refreshTokenHash) {
+        RefreshToken refreshToken = refreshTokenRepository.findActiveByHash(refreshTokenHash)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid refresh token"));
+
+        // talvez validar se o refreshToken está ativo ou não (validateRefreshTokenHandler)
+
+        refreshToken.revoke();
+        refreshTokenRepository.save(refreshToken);
+    }
 }
