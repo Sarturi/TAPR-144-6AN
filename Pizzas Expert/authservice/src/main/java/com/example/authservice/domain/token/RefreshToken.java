@@ -47,7 +47,7 @@ public class RefreshToken {
         this.user = user;
     }
 
-    public void revoke() {
-        this.active = false;
-    }
+    // public void revoke() {
+    //     this.active = false;
+    // }
 }

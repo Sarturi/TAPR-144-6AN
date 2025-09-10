@@ -21,8 +21,8 @@ public class JpaRefreshTokenRepository implements RefreshTokenRepository{
         jpa.deleteById(id);
     }
     @Override
-    public Optional<RefreshToken> findActiveByHash(String hash) {
-        return jpa.findActiveByHash(hash);
+    public Optional<RefreshToken> findByTokenHash(String hash) {
+        return jpa.findByTokenHash(hash);
     }
     @Override
     public void revoke(RefreshToken refreshToken) {

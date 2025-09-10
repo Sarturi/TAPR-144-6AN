@@ -17,7 +17,7 @@ public class ValidateRefreshTokenHandler {
     private final TokenService tokenService;
 
     public boolean handle(String refreshTokenHash) throws IllegalArgumentException {
-        RefreshToken refreshToken = repository.findActiveByHash(refreshTokenHash)
+        RefreshToken refreshToken = repository.findByTokenHash(refreshTokenHash)
             .orElseThrow(() -> new IllegalArgumentException("Invalid refresh token"));
         
         if (Instant.now().isAfter(refreshToken.getExpiresAt().getValue())) {
