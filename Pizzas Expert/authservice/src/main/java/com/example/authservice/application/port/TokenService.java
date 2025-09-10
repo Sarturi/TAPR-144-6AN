@@ -10,4 +10,6 @@ public interface TokenService {
     ) {}
 
     TokenPair issue(User user);
+
+    TokenPair refresh(String refreshToken);
 }

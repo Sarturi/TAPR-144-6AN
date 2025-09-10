@@ -21,7 +21,7 @@ public class EmitRefreshTokenHandler {
         TokenHash hash = TokenHash.of(hashRaw);
         ExpiresAt expiresAt = ExpiresAt.of(expiresAtRaw);
 
-        RefreshToken refToken = new RefreshToken(hash, expiresAt, true, user);
+        RefreshToken refToken = new RefreshToken(hash, expiresAt, user);
         RefreshToken savedRefToken = repository.save(refToken);
 
         return savedRefToken;

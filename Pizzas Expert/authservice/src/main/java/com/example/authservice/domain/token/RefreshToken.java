@@ -36,10 +36,14 @@ public class RefreshToken {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public RefreshToken(TokenHash tokenHash, ExpiresAt expiresAt, boolean active, User user) {
+    public RefreshToken(TokenHash tokenHash, ExpiresAt expiresAt, User user) {
         this.tokenHash = tokenHash;
         this.expiresAt = expiresAt;
-        this.active = active;
+        this.active = true;
         this.user = user;
+    }
+
+    public void revoke() {
+        this.active = false;
     }
 }
