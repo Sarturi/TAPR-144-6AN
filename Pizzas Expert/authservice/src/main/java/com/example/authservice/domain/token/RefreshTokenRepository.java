@@ -1,4 +1,4 @@
-package com.example.authservice.domain;
+package com.example.authservice.domain.token;
 
 import java.util.Optional;
 import java.util.UUID;

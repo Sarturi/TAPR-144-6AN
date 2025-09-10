@@ -27,7 +27,8 @@ public class JwtTokenService implements TokenService {
         Instant now = Instant.now();
         Algorithm alg = Algorithm.HMAC256(props.getSecret().getBytes(StandardCharsets.UTF_8));
 
-        // tempo de expiração do acesso, somando o tempo de agora com o tempo de acesso do jwt properties
+        // tempo de expiração do acesso, somando o tempo de agora com o tempo de acesso
+        // do jwt properties
         Instant accessExp = now.plusSeconds(props.getAccessTtlSeconds());
 
         // esse é o token de acesso
@@ -43,11 +44,23 @@ public class JwtTokenService implements TokenService {
                 .withClaim("level", user.getRole().getValue().getLevel())
                 .sign(alg);
 
-        // criar aqui uma string do token de refresh
+        Instant refreshExp = now.plusSeconds(props.getRefresTtlSeconds());
 
+        // token de refresh
+        String refresh = JWT.create()
+                .withIssuer(props.getIssuer())
+                .withAudience(props.getAudience())
+                .withSubject(user.getId().toString())
+                .withIssuedAt(Date.from(now))
+                .withExpiresAt(Date.from(refreshExp))
+                .withClaim("type", "refresh")
+                .withClaim("email", user.getEmail().getValue())
+                .withClaim("role", user.getRole().getValue().name())
+                .withClaim("level", user.getRole().getValue().getLevel())
+                .sign(alg);
 
         // criação do token, passando o token de acesso, de refresh, e o tempo de
         // expiração
-        return new TokenPair(access, "", props.getAccessTtlSeconds());
+        return new TokenPair(access, refresh, props.getAccessTtlSeconds());
     }
 }

@@ -1,6 +1,7 @@
 package com.example.authservice.interfaces.rest;
 
 import com.example.authservice.application.auth.PasswordLoginHandler;
+import com.example.authservice.domain.token.RefreshToken;
 import com.example.authservice.interfaces.rest.dto.auth.PasswordLoginRequest;
 import com.example.authservice.interfaces.rest.dto.auth.TokenResponse;
 import jakarta.validation.Valid;
@@ -22,4 +23,12 @@ public class AuthController {
         TokenResponse response = passwordLoginHandler.handle(request.email(), request.password());
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/login/refresh")
+    public ResponseEntity<TokenResponse> refresh(@Valid @RequestBody RefreshToken refreshToken) {
+        TokenResponse response = passwordLoginHandler.handle(request.email(), request.password());
+        return ResponseEntity.ok(response);
+    }
+
+    
 }
