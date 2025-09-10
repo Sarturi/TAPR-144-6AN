@@ -1,11 +1,13 @@
 package com.example.authservice.domain.token.vo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 
 @Embeddable
 @Getter
 public class TokenHash {
+    @Column(name = "token_hash", nullable = false)
     private String value;
 
     public TokenHash() {}
