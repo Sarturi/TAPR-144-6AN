@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.authservice.application.port.TokenService;
 import com.example.authservice.application.token.EmitRefreshTokenHandler;
+import com.example.authservice.application.token.ValidateRefreshTokenHandler;
 import com.example.authservice.domain.token.RefreshToken;
 import com.example.authservice.domain.token.RefreshTokenRepository;
 import com.example.authservice.domain.user.User;
@@ -21,6 +22,7 @@ public class JwtTokenService implements TokenService {
     private final JwtProperties props;
     private final EmitRefreshTokenHandler emitRefreshTokenHandler;
     private final RefreshTokenRepository refreshTokenRepository;
+    // private final ValidateRefreshTokenHandler validateRefresh;
 
     @Override
     public TokenPair issue(User user) {
@@ -85,6 +87,9 @@ public class JwtTokenService implements TokenService {
             .orElseThrow(() -> new IllegalArgumentException("Invalid refresh token"));
 
         // talvez validar se o refreshToken está ativo ou não (validateRefreshTokenHandler)
+        // if (!validateRefresh.handle(refreshTokenHash)) {
+        //     System.out.println("Could not refresh");
+        // }
 
         refreshTokenRepository.revoke(refreshToken);
         refreshTokenRepository.save(refreshToken);
