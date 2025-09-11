@@ -1,0 +1,175 @@
+{
+  "name": "pizzas-tapr",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "Get User",
+      "filename": "Get User.bru",
+      "seq": 3,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/users",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Login",
+      "filename": "Login.bru",
+      "seq": 4,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/login/password",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"email\": \"teste@gmail.com\",\n  \"password\": \"12345678\"\n}\n",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Logout",
+      "filename": "Logout.bru",
+      "seq": 6,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/logout",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "text",
+          "json": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJhdWQiOiJwaXp6YSBhcHAiLCJzdWIiOiJmNmNhYmNkYi1hYmY0LTRjMmYtODZhYS0yMzQyZTM4ODJmNDciLCJpYXQiOjE3NTc1OTc0NjUsImV4cCI6MTc2MDE4OTQ2NSwidHlwZSI6InJlZnJlc2giLCJlbWFpbCI6Im11cmlsb0BnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJsZXZlbCI6MX0.2jqb05svd46ZbyAmVXcxz0trrQnLjfjgBJgRgmBv2eU",
+          "text": "refreshToken",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Refresh Token Login",
+      "filename": "Refresh Token Login.bru",
+      "seq": 5,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/refresh",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "text",
+          "json": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJhdWQiOiJwaXp6YSBhcHAiLCJzdWIiOiIyNTM2YzRiNi1hNWUzLTRlNzktYTRlMS00NWIwNDM4OTU0ZTMiLCJpYXQiOjE3NTc1OTY4NzksImV4cCI6MTc2MDE4ODg3OSwidHlwZSI6InJlZnJlc2giLCJlbWFpbCI6Im11cmlsb0BnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJsZXZlbCI6MX0.lshRwPbtOnGynPcwph03A3WMUJUWhdzTSv3bo32ybiE\"",
+          "text": "refreshToken",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Registrar User",
+      "filename": "Registrar User.bru",
+      "seq": 1,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/users",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"name\": \"Teste\",\n  \"email\": \"teste@gmail.com\",\n  \"password\": \"12345678\"\n}\n",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    }
+  ],
+  "environments": [],
+  "brunoConfig": {
+    "version": "1",
+    "name": "pizzas-tapr",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ],
+    "size": 0.0017490386962890625,
+    "filesCount": 5
+  }
+}
