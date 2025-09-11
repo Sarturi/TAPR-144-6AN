@@ -7,12 +7,16 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.authservice.domain.token.RefreshToken;
 
+import jakarta.transaction.Transactional;
+
 import java.util.Optional;
 import java.util.UUID;
 
 public interface SpringDataRefreshTokenJpa extends JpaRepository<RefreshToken, UUID> {
-    Optional<RefreshToken> findByTokenHash(String hash);
+    @Query("SELECT r FROM RefreshToken r WHERE r.tokenHash.value = :hash")
+    Optional<RefreshToken> findActiveByHash(@Param("hash") String hash);
 
+    @Transactional
     @Modifying
     @Query("UPDATE RefreshToken r SET r.active = false WHERE r = :refreshToken")
     void revoke(@Param("refreshToken") RefreshToken refreshToken);

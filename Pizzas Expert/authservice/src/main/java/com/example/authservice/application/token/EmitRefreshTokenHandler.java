@@ -23,6 +23,8 @@ public class EmitRefreshTokenHandler {
 
         RefreshToken refToken = new RefreshToken(hash, expiresAt, user);
         RefreshToken savedRefToken = repository.save(refToken);
+        // System.out.println("EmitRefresh hashRaw: " + hashRaw);
+        // System.out.println("EmitRefresh savedToken hashRaw: " + savedRefToken.getTokenHash().getValue());
 
         return savedRefToken;
     }
