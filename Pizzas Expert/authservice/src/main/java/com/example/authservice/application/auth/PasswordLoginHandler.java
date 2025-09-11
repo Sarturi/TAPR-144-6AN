@@ -34,8 +34,6 @@ public class PasswordLoginHandler {
         }
 
         TokenService.TokenPair pair = tokenService.issue(user);
-        
-        // save refreshtoken
 
         return new TokenResponse(
                 pair.accessToken(),

@@ -1,36 +1,59 @@
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <title>Usuários</title>
 </head>
+
 <body>
-<h1>Lista de Usuários</h1>
-
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Cargo</th>
-    </tr>
-    <tr th:each="u : ${users}">
-        <td th:text="${u.id}"></td>
-        <td th:text="${u.name}"></td>
-        <td th:text="${u.email}"></td>
-        <td th:text="${u.role}"></td>
-    </tr>
-</table>
-
-<!-- Paginação simples -->
-<div>
-    <span>Página <span th:text="${currentPage + 1}"></span> de <span th:text="${totalPages}"></span></span>
-    <div>
-        <a th:if="${currentPage > 0}"
-           th:href="@{/users/list(page=${currentPage - 1})}">Anterior</a>
-
-        <a th:if="${currentPage + 1 < totalPages}"
-           th:href="@{/users/list(page=${currentPage + 1})}">Próxima</a>
+    <div style="max-width: 80%; overflow-y: auto;">
+        <h1>Lista de Usuários</h1>
+    
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Cargo</th>
+            </tr>
+            <tr th:each="u : ${users}">
+                <td th:text="${u.id}"></td>
+                <td th:text="${u.name}"></td>
+                <td th:text="${u.email}"></td>
+                <td th:text="${u.role}"></td>
+            </tr>
+        </table>
+    
+        <!-- Paginação simples -->
+        <div>
+            <span>Página <span th:text="${currentPage + 1}"></span> de <span th:text="${totalPages}"></span></span>
+            <div>
+                <a th:if="${currentPage > 0}" th:href="@{/users/list(page=${currentPage - 1})}">Anterior</a>
+    
+                <a th:if="${currentPage + 1 < totalPages}" th:href="@{/users/list(page=${currentPage + 1})}">Próxima</a>
+            </div>
+        </div>
     </div>
-</div>
 
+    <div style="max-width: 80%; overflow-y: auto;">
+        <h1>Lista de Tokens</h1>
+    
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>nome</th>
+                <th>tokenhash hash</th>
+                <th>expiresat</th>
+                <th>active</th>
+            </tr>
+            <tr th:each="t : ${tokens}">
+                <td th:text="${t.id}"></td>
+                <td th:text="${t.user.getName()}"></td>
+                <td th:text="${t.tokenHash.getValue()}"></td>
+                <td th:text="${#temporals.format(t.expiresAt.getValue().atZone(T(java.time.ZoneId).of('America/Sao_Paulo')), 'dd/MM/yyyy HH:mm:ss')}"></td>
+                <td th:text="${t.active}"></td>
+            </tr>
+        </table>
+    </div>
 </body>
+
 </html>

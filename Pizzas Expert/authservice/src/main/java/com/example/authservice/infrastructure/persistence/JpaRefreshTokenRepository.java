@@ -1,5 +1,6 @@
 package com.example.authservice.infrastructure.persistence;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -33,4 +34,8 @@ public class JpaRefreshTokenRepository implements RefreshTokenRepository{
         return jpa.save(refreshToken);
     }
     
+    @Override
+    public List<RefreshToken> getAll() {
+        return jpa.findAll();
+    }
 }

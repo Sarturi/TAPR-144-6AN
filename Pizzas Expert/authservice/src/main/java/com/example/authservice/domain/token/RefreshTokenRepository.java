@@ -1,5 +1,6 @@
 package com.example.authservice.domain.token;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -8,4 +9,5 @@ public interface RefreshTokenRepository {
     Optional<RefreshToken> findActiveByHash(String hash);
     void revoke(RefreshToken refreshToken);
     void deleteById(UUID id);
+    List<RefreshToken> getAll();
 }
