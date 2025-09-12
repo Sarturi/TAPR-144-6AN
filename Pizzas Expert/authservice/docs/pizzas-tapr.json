@@ -158,6 +158,38 @@
           "mode": "inherit"
         }
       }
+    },
+    {
+      "type": "http",
+      "name": "Validate Token Login",
+      "filename": "Validate Token Login.bru",
+      "seq": 7,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/validate",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "text",
+          "json": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJhdWQiOiJwaXp6YSBhcHAiLCJzdWIiOiIyNTM2YzRiNi1hNWUzLTRlNzktYTRlMS00NWIwNDM4OTU0ZTMiLCJpYXQiOjE3NTc1OTY4NzksImV4cCI6MTc2MDE4ODg3OSwidHlwZSI6InJlZnJlc2giLCJlbWFpbCI6Im11cmlsb0BnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJsZXZlbCI6MX0.lshRwPbtOnGynPcwph03A3WMUJUWhdzTSv3bo32ybiE\"",
+          "text": "refreshToken",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
     }
   ],
   "environments": [],

@@ -1,167 +1,45 @@
-openapi: 3.0.3
+openapi: 3.1.0
 info:
   title: Pizzas TAPR API
+  version: "1.0.0"
   description: |
-    Documentação Swagger gerada a partir da coleção Bruno enviada (login, refresh,
-    logout e CRUD básico de usuários). Endpoints e exemplos foram inferidos dos
-    requests da coleção. Ajuste conforme os contratos reais do seu backend.
-  version: 1.0.0
+    API de autenticação e usuários do projeto **pizzas-tapr**.
+    Baseado nos requests fornecidos (Bruno collection).
 servers:
   - url: http://localhost:8080
-    description: Ambiente local
+    description: Local
+
 tags:
   - name: Auth
-    description: Autenticação e sessão
   - name: Users
-    description: Gestão de usuários
+
 paths:
-  /auth/login/password:
-    post:
-      tags: [Auth]
-      summary: Login com e-mail e senha
-      description: Retorna um par de tokens (access e refresh) ao autenticar com credenciais válidas.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/LoginPasswordRequest'
-            examples:
-              exemplo:
-                value:
-                  email: teste@gmail.com
-                  password: "12345678"
-      responses:
-        '200':
-          description: Autenticado com sucesso
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokenPair'
-              examples:
-                exemplo:
-                  value:
-                    accessToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.access.token.aqui
-                    refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh.token.aqui
-        '401':
-          description: Credenciais inválidas
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessageResponse'
-              examples:
-                exemplo:
-                  value:
-                    message: Email ou senha incorretos
-  /auth/refresh:
-    post:
-      tags: [Auth]
-      summary: Renovar access token usando refresh token
-      description: |
-        Aceita o refresh token no corpo da requisição. Suporta `text/plain` com o token puro
-        ou `application/json` com objeto `{ "refreshToken": "<token>" }`.
-      requestBody:
-        required: true
-        content:
-          text/plain:
-            schema:
-              type: string
-              description: Refresh token em texto puro
-            examples:
-              exemplo:
-                value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh.token.aqui
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RefreshTokenRequest'
-            examples:
-              exemplo:
-                value:
-                  refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh.token.aqui
-      responses:
-        '200':
-          description: Novo access token gerado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/TokenPair'
-        '401':
-          description: Refresh token inválido ou expirado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessageResponse'
-  /auth/logout:
-    post:
-      tags: [Auth]
-      summary: Logout (revogar refresh token)
-      description: |
-        Revoga o refresh token informado. Suporta `text/plain` com o token puro
-        ou `application/json` com objeto `{ "refreshToken": "<token>" }`.
-      requestBody:
-        required: true
-        content:
-          text/plain:
-            schema:
-              type: string
-              description: Refresh token em texto puro
-            examples:
-              exemplo:
-                value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh.token.aqui
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RefreshTokenRequest'
-            examples:
-              exemplo:
-                value:
-                  refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.refresh.token.aqui
-      responses:
-        '200':
-          description: Logout efetuado
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessageResponse'
-              examples:
-                exemplo:
-                  value:
-                    message: Refresh token revogado
-        '401':
-          description: Token inválido
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/MessageResponse'
   /users:
     get:
       tags: [Users]
       summary: Listar usuários
+      operationId: listUsers
+      security:
+        - bearerAuth: [ ]
       responses:
-        '200':
+        "200":
           description: Lista de usuários
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/User'
-              examples:
-                exemplo:
-                  value:
-                    - id: f6cab...2f47
-                      name: Maria
-                      email: maria@example.com
-                    - id: 2536c...54e3
-                      name: João
-                      email: joao@example.com
+                  $ref: "#/components/schemas/User"
     post:
       tags: [Users]
       summary: Registrar usuário
+      operationId: createUser
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/CreateUserRequest'
+              $ref: "#/components/schemas/UserCreateRequest"
             examples:
               exemplo:
                 value:
@@ -169,86 +47,207 @@ paths:
                   email: teste@gmail.com
                   password: "12345678"
       responses:
-        '201':
+        "201":
           description: Usuário criado
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                exemplo:
-                  value:
-                    id: 8f2f3c30-1234-4b56-9a7b-0a1b2c3d4e5f
-                    name: Teste
-                    email: teste@gmail.com
-        '400':
+                $ref: "#/components/schemas/User"
+        "400":
           description: Dados inválidos
+
+  /auth/login/password:
+    post:
+      tags: [Auth]
+      summary: Login com e-mail e senha
+      operationId: loginWithPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+            examples:
+              exemplo:
+                value:
+                  email: teste@gmail.com
+                  password: "12345678"
+      responses:
+        "200":
+          description: Tokens gerados
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MessageResponse'
+                $ref: "#/components/schemas/AuthTokens"
+        "401":
+          description: Credenciais inválidas
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Gerar novo access token a partir do refresh token
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              description: Refresh token puro no corpo (modo `text` no Bruno)
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required: [refreshToken]
+              example:
+                refreshToken: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+      responses:
+        "200":
+          description: Novo access token emitido
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthTokens"
+        "401":
+          description: Refresh token inválido ou expirado
+
+  /auth/validate:
+    post:
+      tags: [Auth]
+      summary: Validar refresh token
+      operationId: validateToken
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              description: Refresh token puro no corpo (modo `text`)
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required: [refreshToken]
+      responses:
+        "200":
+          description: Resultado da validação
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  valid:
+                    type: boolean
+                  sub:
+                    type: string
+                    description: Identificador do usuário (subject)
+                  exp:
+                    type: integer
+                    description: Epoch seconds de expiração
+                required: [valid]
+              examples:
+                valido:
+                  value: { valid: true, sub: "2536c4b6-a5e3-4e79-a4e1-45b0438954e3", exp: 1760188879 }
+                invalido:
+                  value: { valid: false }
+        "401":
+          description: Token inválido
+
+  /auth/logout:
+    post:
+      tags: [Auth]
+      summary: Invalidar refresh token (logout)
+      operationId: logout
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+              description: Refresh token puro no corpo (modo `text`)
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+          application/json:
+            schema:
+              type: object
+              properties:
+                refreshToken:
+                  type: string
+              required: [refreshToken]
+      responses:
+        "204":
+          description: Logout efetuado (token invalidado)
+        "200":
+          description: Logout efetuado (algumas implementações retornam 200)
+        "401":
+          description: Token inválido
+
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
       bearerFormat: JWT
+
   schemas:
     User:
       type: object
       properties:
         id:
           type: string
-          format: uuid
+          example: f6cabcd b-abf4-4c2f-86aa-2342e3882f47
         name:
           type: string
+          example: Teste
         email:
           type: string
           format: email
+          example: teste@gmail.com
+        role:
+          type: string
+          example: CUSTOMER
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
       required: [id, name, email]
-    CreateUserRequest:
+
+    UserCreateRequest:
       type: object
       properties:
-        name:
-          type: string
-        email:
-          type: string
-          format: email
-        password:
-          type: string
-          format: password
-          minLength: 8
+        name: { type: string }
+        email: { type: string, format: email }
+        password: { type: string, format: password, minLength: 8 }
       required: [name, email, password]
-    LoginPasswordRequest:
+
+    LoginRequest:
       type: object
       properties:
-        email:
-          type: string
-          format: email
-        password:
-          type: string
-          format: password
+        email: { type: string, format: email }
+        password: { type: string, format: password, minLength: 8 }
       required: [email, password]
-    RefreshTokenRequest:
-      type: object
-      properties:
-        refreshToken:
-          type: string
-      required: [refreshToken]
-    TokenPair:
+
+    AuthTokens:
       type: object
       properties:
         accessToken:
           type: string
-          description: JWT de acesso (curta duração)
         refreshToken:
           type: string
-          description: JWT de atualização (longa duração)
-      required: [accessToken, refreshToken]
-    MessageResponse:
-      type: object
-      properties:
-        message:
+        tokenType:
           type: string
-security:
-  - bearerAuth: []
+          example: Bearer
+        expiresIn:
+          type: integer
+          description: Segundos até expirar o access token
+          example: 900
+        user:
+          $ref: "#/components/schemas/User"
+      required: [accessToken, refreshToken, tokenType, expiresIn]
