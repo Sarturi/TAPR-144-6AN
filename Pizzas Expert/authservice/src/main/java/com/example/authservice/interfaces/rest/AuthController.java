@@ -3,6 +3,7 @@ package com.example.authservice.interfaces.rest;
 import com.example.authservice.application.auth.PasswordLoginHandler;
 import com.example.authservice.application.logout.LogoutHandler;
 import com.example.authservice.application.token.RefreshTokenHandler;
+import com.example.authservice.application.token.ValidateRefreshTokenHandler;
 import com.example.authservice.interfaces.rest.dto.auth.PasswordLoginRequest;
 import com.example.authservice.interfaces.rest.dto.auth.TokenResponse;
 import jakarta.validation.Valid;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final PasswordLoginHandler passwordLoginHandler;
     private final RefreshTokenHandler refreshTokenHandler;
+    private final ValidateRefreshTokenHandler validateRefreshTokenHandler;
     private final LogoutHandler logoutHandler;
 
     @PostMapping("/login/password")
@@ -30,6 +32,12 @@ public class AuthController {
     @PostMapping("/refresh")
     public ResponseEntity<TokenResponse> refresh(@Valid @RequestBody String refreshTokenHash) {
         TokenResponse response = refreshTokenHandler.handle(refreshTokenHash);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/validate")
+    public ResponseEntity<Boolean> validate(@Valid @RequestBody String refreshTokenHash) {
+        boolean response = validateRefreshTokenHandler.handleTime(refreshTokenHash);
         return ResponseEntity.ok(response);
     }
 

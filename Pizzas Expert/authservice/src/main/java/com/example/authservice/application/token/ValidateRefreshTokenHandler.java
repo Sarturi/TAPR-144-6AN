@@ -28,4 +28,19 @@ public class ValidateRefreshTokenHandler {
 
         return true;
     }
+
+    public boolean handleTime(String refreshTokenHash) throws IllegalArgumentException {
+        RefreshToken refreshToken = repository.findActiveByHash(refreshTokenHash)
+            .orElseThrow(() -> new IllegalArgumentException("Invalid refresh token"));
+        
+        if (Instant.now().isAfter(refreshToken.getExpiresAt().getValue())) {
+            throw new IllegalArgumentException("Expired refresh token");
+        }
+
+        if (!refreshToken.isActive()) {
+            throw new IllegalArgumentException("Inactive refresh token");
+        }
+
+        return true;
+    }
 }
