@@ -14,6 +14,8 @@ import java.time.Instant;
 public class LogMailSender implements MailSender {
     private static final Logger log = LoggerFactory.getLogger(LogMailSender.class);
 
+    // método que envia o link mágico para o log,
+    // deve ser usado somente para local
     @Override
     public void sendMagicLink(String toEmail, String magicUrl, Instant expiresAt) {
         log.info("[DEV] Magic Link para {}: {} (expira em {})", toEmail, magicUrl, expiresAt);

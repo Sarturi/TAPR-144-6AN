@@ -29,12 +29,14 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
+    // endpoint para enviar um link mágico ao email
     @PostMapping("/login/magic")
     public ResponseEntity<Void> requestMagic(@Valid @RequestBody MagicLinkRequest req) {
         requestMagicLinkHandler.handle(req.email());
         return ResponseEntity.accepted().build();
     }
 
+    // endpoint de verificação do link
     @PostMapping("/login/magic/verify")
     public ResponseEntity<TokenResponse> verifyMagic(@Valid @RequestBody MagicLinkVerifyRequest req) {
         TokenResponse tokens = verifyMagicLinkHandler.handle(req.token());

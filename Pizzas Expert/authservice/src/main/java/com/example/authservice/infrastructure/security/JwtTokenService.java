@@ -4,7 +4,6 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.authservice.application.port.TokenService;
 import com.example.authservice.application.token.EmitRefreshTokenHandler;
-import com.example.authservice.application.token.ValidateRefreshTokenHandler;
 import com.example.authservice.domain.token.RefreshToken;
 import com.example.authservice.domain.token.RefreshTokenRepository;
 import com.example.authservice.domain.user.User;
