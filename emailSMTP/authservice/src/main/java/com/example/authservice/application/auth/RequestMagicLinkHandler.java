@@ -34,7 +34,7 @@ public class RequestMagicLinkHandler {
 
         Optional<User> userOpt = userRepository.findByEmail(emailRaw);
         if (userOpt.isEmpty()) {
-            return new Result(true);
+            return new Result(false);
         }
 
         User user = userOpt.get();
