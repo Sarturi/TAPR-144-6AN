@@ -10,9 +10,11 @@ import com.example.authservice.interfaces.rest.dto.auth.TokenResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -37,9 +39,17 @@ public class AuthController {
     }
 
     // endpoint de verificação do link
+    // antigo
     @PostMapping("/login/magic/verify")
     public ResponseEntity<TokenResponse> verifyMagic(@Valid @RequestBody MagicLinkVerifyRequest req) {
         TokenResponse tokens = verifyMagicLinkHandler.handle(req.token());
+        return ResponseEntity.ok(tokens);
+    }
+
+    // novo, pega a partir da url
+    @GetMapping("/login/magic/verify")
+    public ResponseEntity<TokenResponse> verifyMagic(@RequestParam String token) {
+        TokenResponse tokens = verifyMagicLinkHandler.handle(token);
         return ResponseEntity.ok(tokens);
     }
 }
