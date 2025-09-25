@@ -3,6 +3,7 @@ package com.example.authservice.interfaces.rest;
 import com.example.authservice.application.auth.PasswordLoginHandler;
 import com.example.authservice.application.auth.RequestMagicLinkHandler;
 import com.example.authservice.application.auth.VerifyMagicLinkHandler;
+import com.example.authservice.application.auth.RequestMagicLinkHandler.Result;
 import com.example.authservice.interfaces.rest.dto.auth.MagicLinkRequest;
 import com.example.authservice.interfaces.rest.dto.auth.MagicLinkVerifyRequest;
 import com.example.authservice.interfaces.rest.dto.auth.PasswordLoginRequest;
@@ -33,9 +34,14 @@ public class AuthController {
 
     // endpoint para enviar um link mágico ao email
     @PostMapping("/login/magic")
-    public ResponseEntity<Void> requestMagic(@Valid @RequestBody MagicLinkRequest req) {
-        requestMagicLinkHandler.handle(req.email());
-        return ResponseEntity.accepted().build();
+    public ResponseEntity<String> requestMagic(@Valid @RequestBody MagicLinkRequest req) {
+        Result res = requestMagicLinkHandler.handle(req.email());
+
+        if (res.accepted()) {
+            return ResponseEntity.accepted().body("Verifique sua caixa de email");
+        } else {
+            return ResponseEntity.badRequest().body("Falha ao gerar magic link");
+        }
     }
 
     // endpoint de verificação do link
