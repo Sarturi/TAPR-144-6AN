@@ -1,0 +1,274 @@
+{
+  "name": "pizzas-tapr",
+  "version": "1",
+  "items": [
+    {
+      "type": "http",
+      "name": "Get User",
+      "filename": "Get User.bru",
+      "seq": 3,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/users",
+        "method": "GET",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Login Magic",
+      "filename": "Login Magic.bru",
+      "seq": 6,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/login/magic",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"email\": \"tapr-murilo@tuamaeaquelaursa.com\"\n}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Login",
+      "filename": "Login.bru",
+      "seq": 4,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/login/password",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"email\": \"teste@gmail.com\",\n  \"password\": \"12345678\"\n}\n",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Logout",
+      "filename": "Logout.bru",
+      "seq": 6,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/logout",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "text",
+          "json": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJhdWQiOiJwaXp6YSBhcHAiLCJzdWIiOiJmNmNhYmNkYi1hYmY0LTRjMmYtODZhYS0yMzQyZTM4ODJmNDciLCJpYXQiOjE3NTc1OTc0NjUsImV4cCI6MTc2MDE4OTQ2NSwidHlwZSI6InJlZnJlc2giLCJlbWFpbCI6Im11cmlsb0BnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJsZXZlbCI6MX0.2jqb05svd46ZbyAmVXcxz0trrQnLjfjgBJgRgmBv2eU",
+          "text": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJhdWQiOiJwaXp6YSBhcHAiLCJzdWIiOiIwNjgyNzBiMy1lMTk4LTQ1YzUtYjkyNy1hZjI3YzIxNTRkYzEiLCJpYXQiOjE3NTc2MTM3NzksImV4cCI6MTc1NzYxMzgzOSwidHlwZSI6InJlZnJlc2giLCJlbWFpbCI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImxldmVsIjoxfQ.X59WrLRQZbNuudr0J_QgSfpPX0tM77JHfGtc9yDawTQ",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Refresh Token Login",
+      "filename": "Refresh Token Login.bru",
+      "seq": 5,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/refresh",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "text",
+          "json": "\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJhdWQiOiJwaXp6YSBhcHAiLCJzdWIiOiIyNTM2YzRiNi1hNWUzLTRlNzktYTRlMS00NWIwNDM4OTU0ZTMiLCJpYXQiOjE3NTc1OTY4NzksImV4cCI6MTc2MDE4ODg3OSwidHlwZSI6InJlZnJlc2giLCJlbWFpbCI6Im11cmlsb0BnbWFpbC5jb20iLCJyb2xlIjoiQ1VTVE9NRVIiLCJsZXZlbCI6MX0.lshRwPbtOnGynPcwph03A3WMUJUWhdzTSv3bo32ybiE\"",
+          "text": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLXNlcnZpY2UiLCJhdWQiOiJwaXp6YSBhcHAiLCJzdWIiOiIwNjgyNzBiMy1lMTk4LTQ1YzUtYjkyNy1hZjI3YzIxNTRkYzEiLCJpYXQiOjE3NTc2MTM2MzksImV4cCI6MTc1NzYxMzY5OSwidHlwZSI6InJlZnJlc2giLCJlbWFpbCI6InRlc3RlQGdtYWlsLmNvbSIsInJvbGUiOiJDVVNUT01FUiIsImxldmVsIjoxfQ.g7DX616ibsNkI8SdTRSRp5AmZLsWlDkmEmh3tF_Uyvs",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Registrar User",
+      "filename": "Registrar User.bru",
+      "seq": 1,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/users",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"name\": \"Murilo\",\n  \"email\": \"tapr-murilo@tuamaeaquelaursa.com\",\n  \"password\": \"12345678\"\n}\n",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Verify Magic",
+      "filename": "Verify Magic.bru",
+      "seq": 8,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/login/magic/verify",
+        "method": "POST",
+        "headers": [],
+        "params": [],
+        "body": {
+          "mode": "json",
+          "json": "{\n  \"token\": \"QHViPIUgk\"\n}",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    },
+    {
+      "type": "http",
+      "name": "Verify Magic Param",
+      "filename": "Verify Magic Param.bru",
+      "seq": 9,
+      "settings": {
+        "encodeUrl": true
+      },
+      "tags": [],
+      "request": {
+        "url": "http://localhost:8080/auth/login/magic/verify?token=k_DryF8-wa",
+        "method": "GET",
+        "headers": [],
+        "params": [
+          {
+            "name": "token",
+            "value": "k_DryF8-wa",
+            "type": "query",
+            "enabled": true
+          }
+        ],
+        "body": {
+          "mode": "none",
+          "formUrlEncoded": [],
+          "multipartForm": [],
+          "file": []
+        },
+        "script": {},
+        "vars": {},
+        "assertions": [],
+        "tests": "",
+        "docs": "",
+        "auth": {
+          "mode": "inherit"
+        }
+      }
+    }
+  ],
+  "environments": [],
+  "brunoConfig": {
+    "version": "1",
+    "name": "pizzas-tapr",
+    "type": "collection",
+    "ignore": [
+      "node_modules",
+      ".git"
+    ],
+    "size": 0.0027942657470703125,
+    "filesCount": 7
+  }
+}
