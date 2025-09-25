@@ -15,7 +15,7 @@ public class SmtpMailSender implements MailSender {
     private static final Logger log = LoggerFactory.getLogger(LogMailSender.class);
 
     // método que envia o link mágico para o log,
-    // deve ser usado somente para local
+    // deve ser usado somente para prod
     @Override
     public void sendMagicLink(String toEmail, String magicUrl, Instant expiresAt) {
         log.info("[PROD] Magic Link para {}: {} (expira em {})", toEmail, magicUrl, expiresAt);
